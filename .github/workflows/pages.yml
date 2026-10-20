@@ -21,10 +21,43 @@ jobs:
         uses: actions/checkout@v4
       - name: Configurar Pages
         uses: actions/configure-pages@v5
+      - name: Preparar sitio y banderas originales
+        run: |
+          mkdir -p _site
+          cp index.html countries.js flags.js extras.js online.js _site/
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          root=Path('_site')
+          choices=[Path('chigui-world-cup-banderas.zip'),Path('BANDERAS(2).zip'),Path('BANDERAS.zip')]
+          archive=next((p for p in choices if p.exists()),None)
+          if archive:
+              with ZipFile(archive) as z:
+                  count=0
+                  for f in z.infolist():
+                      if f.is_dir() or not f.filename.lower().endswith('.png'):
+                          continue
+                      name=f.filename.replace('\\','/')
+                      if name.startswith('BANDERAS/'):
+                          name='flags/'+name[len('BANDERAS/'):]
+                      if not name.startswith('flags/'):
+                          continue
+                      target=root/name
+                      if any(part in ('..','') for part in Path(name).parts):
+                          continue
+                      target.parent.mkdir(parents=True,exist_ok=True)
+                      target.write_bytes(z.read(f))
+                      count+=1
+                  if count!=252:
+                      raise RuntimeError(f'El ZIP debe contener las 252 banderas: encontradas {count}')
+              print(f'Banderas originales incorporadas al sitio: {count}')
+          else:
+              print('No hay ZIP en el repositorio. Se utilizaran banderas de respaldo.')
+          PY
       - name: Subir sitio
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
