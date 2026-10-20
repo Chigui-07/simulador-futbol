@@ -16,7 +16,7 @@ GitHub Actions contiene el flujo `.github/workflows/pages.yml`. En GitHub → Se
 
 ## Banderas
 
-Hay 252 identificadores de países y territorios en `countries.js`. El repositorio aún necesita recibir los 252 PNG originales dentro de `flags/<CONTINENTE>/<NOMBRE>.png`, por ejemplo `flags/EUROPA/ALEMANIA.png`. Mientras tanto se usan emojis cuando hay equivalentes o el icono alternativo.
+Hay 252 identificadores de países y territorios en `countries.js`. El sitio ya utiliza imágenes de banderas desde flagcdn.com mediante un mapa de 252 entradas en `flags.js`. Algunas banderas de territorios especiales se aproximan con una bandera regional o nacional: para reproducir las **252 imágenes originales** hay que añadir los PNG del ZIP dentro de `flags/<CONTINENTE>/<NOMBRE>.png`, por ejemplo `flags/EUROPA/ALEMANIA.png`. Las imágenes remotas requieren conexión a Internet. Cuando se incorporen los PNG originales, conviene cambiar la prioridad a los archivos locales para asegurar las banderas especiales.
 
 ## Base online
 
