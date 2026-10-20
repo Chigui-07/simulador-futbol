@@ -58,7 +58,7 @@ document.getElementById("main").addEventListener("click",e=>{
   if(action==="auth"){
     const email=document.getElementById("cwcemail")?.value.trim(),password=document.getElementById("cwcpassword")?.value;
     if(!email||!password||password.length<8)throw Error("Ingresa un correo y contraseña de 8 o más caracteres.");
-    const res=onlineTab==="signup"?await sb.auth.signUp({email,password}):await sb.auth.signInWithPassword({email,password});
+    const res=onlineTab==="signup"?await sb.auth.signUp({email,password,options:{data:{app:"chigui_world_cup"}}}):await sb.auth.signInWithPassword({email,password});
     if(res.error)throw res.error;
     session=res.data.session;
     if(onlineTab==="signup"&&!session)toast("Cuenta creada. Revisa tu correo para confirmar el registro.");
