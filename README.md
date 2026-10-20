@@ -1,36 +1,39 @@
 # 🏆 Chigui World Cup
 
-Simulador web de Copas del Mundo con países soberanos, no soberanos y territorios.
+Simulador web de Copas del Mundo con países, territorios y selecciones personalizadas.
 
-## Versión 0.1 — prototipo local
+## Estado de desarrollo — prototipo web v0.2
 
-- Catálogo de 252 participantes a partir de los nombres del ZIP aportado.
-- Copas personalizadas de 8, 16, 24, 32, 48 o 64 equipos.
-- Sorteos, grupos y clasificaciones con puntos, DG y goles.
-- Simulación de marcadores considerando fuerzas ficticias.
-- Eliminatorias con prórroga y penaltis.
+### Disponible en el navegador (modo individual)
+- Catálogo de 252 participantes y sus fuerzas ficticias.
+- Copas de 8, 16, 24, 32, 48 o 64 equipos.
+- Sorteos aleatorios, grupos y tablas.
+- Simulación de partidos con probabilidades, sorpresas, prórrogas y penaltis.
+- Reproductor de partidos: marcador, reloj y eventos de gol.
+- Selector de velocidad (1×, 2× o 4×).
+- Chiguicoins **locales de prueba**: 1000 iniciales, pronósticos del próximo partido, aciertos y medallas.
+- Perfil local con nombre y estadísticas.
 - Historial de campeones guardado en el navegador.
 
-### Importante: banderas pendientes
+### No disponible todavía como servicio real
+- Salas privadas compartidas y anfitrión conectado.
+- Identidades verificadas, inicio de sesión y ranking entre amigos.
+- Chiguicoins y pronósticos seguros sincronizados online.
+- Historial sincronizado entre dispositivos.
 
-El catálogo referencia imágenes originales en `flags/<CONTINENTE>/<NOMBRE>.png`, por ejemplo `flags/AFRICA/ANGOLA.png` y `flags/EUROPA/ALEMANIA.png`. Aún no están subidas al repositorio; el juego muestra un icono de respaldo hasta su incorporación. Extraer el ZIP original y subir el contenido de la carpeta `BANDERAS/` dentro de `flags/`, manteniendo los nombres originales.
+Estas funciones necesitan un proyecto Supabase separado (NO usar Academia Nexora), su configuración, funciones de servidor y pruebas de seguridad. En `backend/schema.sql` hay un **borrador de esquema sin desplegar**. No habilitar escrituras de saldos desde el navegador.
 
-### Siguientes fases
+## Banderas oficiales del archivo compartido
+Los 252 PNG proporcionados por el autor deben colocarse en `flags/<CONTINENTE>/<NOMBRE>.png`, exactamente con los nombres del ZIP. Sin esos archivos, se muestran emojis cuando existen y un símbolo de respaldo.
 
-- Animación del partido en vivo con reloj y velocidad.
-- Cuentas y perfiles; salas privadas con código; anfitrión de sala.
-- Pronósticos usando Chiguicoins exclusivamente virtuales.
-- Ranking, logros y medallas.
-- Mejoras de sorteos y desempates deportivos.
+Se ha preparado un ZIP aparte con la carpeta `flags/`, listo para subir a GitHub. Por ahora **no está incluido en este repositorio**.
 
-## GitHub Pages
+## Publicación GitHub Pages
 
-En Settings → Pages elegir **Deploy from a branch** y luego rama `main`, carpeta `/(root)`. Cuando GitHub Pages se habilite, se podrá abrir el sitio desde la URL del repositorio de Pages.
+El repositorio incluye `.github/workflows/pages.yml`. En GitHub, configurar **Settings → Pages → Source → GitHub Actions**. La acción intentará publicar los archivos del repositorio cuando se actualice la rama `main`. Confirmar el resultado en **Actions**. La URL prevista es https://chigui-07.github.io/simulador-futbol/ pero su disponibilidad depende de la configuración de Pages.
 
-## Desarrollo
-
-HTML, CSS y JavaScript sin herramientas de compilación. El progreso se guarda en el navegador, no se sincroniza todavía entre dispositivos. No almacenar secretos ni claves privadas en archivos públicos.
-
-## Estado del proyecto
-
-Esta versión todavía **no** es multijugador y **no** permite apostar monedas: esas funciones requieren autenticación y un backend seguro.
+## Notas
+- Los resultados y la fuerza de las selecciones son ficticios, no ratings oficiales FIFA.
+- Las monedas son puramente lúdicas, sin compra o canje por dinero real.
+- En el prototipo individual, Chiguicoins, perfiles y logros pueden modificarse desde el navegador: NO utilizarlos para clasificaciones públicas competitivas.
+- HTML, CSS y JavaScript sin compilación.
