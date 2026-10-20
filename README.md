@@ -1,39 +1,35 @@
 # 🏆 Chigui World Cup
 
-Simulador web de Copas del Mundo con países, territorios y selecciones personalizadas.
+Simulador web de Copas del Mundo con países soberanos, no soberanos y territorios.
 
-## Estado de desarrollo — prototipo web v0.2
+## Estado de desarrollo
 
-### Disponible en el navegador (modo individual)
-- Catálogo de 252 participantes y sus fuerzas ficticias.
-- Copas de 8, 16, 24, 32, 48 o 64 equipos.
-- Sorteos aleatorios, grupos y tablas.
-- Simulación de partidos con probabilidades, sorpresas, prórrogas y penaltis.
-- Reproductor de partidos: marcador, reloj y eventos de gol.
-- Selector de velocidad (1×, 2× o 4×).
-- Chiguicoins **locales de prueba**: 1000 iniciales, pronósticos del próximo partido, aciertos y medallas.
-- Perfil local con nombre y estadísticas.
-- Historial de campeones guardado en el navegador.
+- **Modo individual:** copas personalizadas de 8, 16, 24, 32, 48 y 64 participantes, sorteos, grupos, marcadores, eliminatorias, palmarés.
+- **Partidos animados:** reloj acelerado, marcador y eventos.
+- **Modo individual de prueba:** Chiguicoins locales, pronósticos y logros (no sincronizados ni seguros contra manipulación).
+- **Modo online en Supabase:** correo y contraseña, perfil, sala privada de seis caracteres, anfitrión, torneos de 8/16/32 selecciones, resultados y pronósticos procesados en PostgreSQL. Se actualiza por consulta periódica.
+- **No son apuestas reales:** Chiguicoins no se compran, venden ni canjean.
 
-### No disponible todavía como servicio real
-- Salas privadas compartidas y anfitrión conectado.
-- Identidades verificadas, inicio de sesión y ranking entre amigos.
-- Chiguicoins y pronósticos seguros sincronizados online.
-- Historial sincronizado entre dispositivos.
+## Publicación
 
-Estas funciones necesitan un proyecto Supabase separado (NO usar Academia Nexora), su configuración, funciones de servidor y pruebas de seguridad. En `backend/schema.sql` hay un **borrador de esquema sin desplegar**. No habilitar escrituras de saldos desde el navegador.
+GitHub Actions contiene el flujo `.github/workflows/pages.yml`. En GitHub → Settings → Pages escoger **GitHub Actions** como fuente de publicación. No se ha comprobado aún un despliegue exitoso.
 
-## Banderas oficiales del archivo compartido
-Los 252 PNG proporcionados por el autor deben colocarse en `flags/<CONTINENTE>/<NOMBRE>.png`, exactamente con los nombres del ZIP. Sin esos archivos, se muestran emojis cuando existen y un símbolo de respaldo.
+## Banderas
 
-Se ha preparado un ZIP aparte con la carpeta `flags/`, listo para subir a GitHub. Por ahora **no está incluido en este repositorio**.
+Hay 252 identificadores de países y territorios en `countries.js`. El repositorio aún necesita recibir los 252 PNG originales dentro de `flags/<CONTINENTE>/<NOMBRE>.png`, por ejemplo `flags/EUROPA/ALEMANIA.png`. Mientras tanto se usan emojis cuando hay equivalentes o el icono alternativo.
 
-## Publicación GitHub Pages
+## Base online
 
-El repositorio incluye `.github/workflows/pages.yml`. En GitHub, configurar **Settings → Pages → Source → GitHub Actions**. La acción intentará publicar los archivos del repositorio cuando se actualice la rama `main`. Confirmar el resultado en **Actions**. La URL prevista es https://chigui-07.github.io/simulador-futbol/ pero su disponibilidad depende de la configuración de Pages.
+Supabase: la instancia compartida usa exclusivamente tablas `public.cwc_*`, con RLS y operaciones RPC restringidas. Los usuarios de Chigui World Cup llevan `app: "chigui_world_cup"` en la metadata de registro para omitir la inscripción de la academia. No se debe subir ninguna clave privada; `online.js` lleva solamente la clave publicable.
 
-## Notas
-- Los resultados y la fuerza de las selecciones son ficticios, no ratings oficiales FIFA.
-- Las monedas son puramente lúdicas, sin compra o canje por dinero real.
-- En el prototipo individual, Chiguicoins, perfiles y logros pueden modificarse desde el navegador: NO utilizarlos para clasificaciones públicas competitivas.
-- HTML, CSS y JavaScript sin compilación.
+Para entrar, usar **Amigos**, registrarse y crear una sala. El anfitrión puede iniciar el torneo. Otros jugadores entran con el código e introducen pronósticos antes de cada partido. El servidor asigna resultados y premios.
+
+## Limitaciones y próximos pasos
+
+- Validar registro real por correo, pruebas entre dos navegadores y despliegue público.
+- Usar la selección y fuerzas deportivas compartidas desde el servidor, no nombres provistos sin catálogo servidor.
+- Mejorar la animación de partidos online; hoy el anfitrión los avanza y los espectadores reciben el marcador final.
+- Rankings globales, logros completos, estadísticas públicas y moderación.
+- Separación definitiva de la autenticación del proyecto de Academia Nexora si se necesita aislamiento completo.
+
+**Atención:** la instancia de Supabase se comparte con Academia Nexora. No borrar ni editar tablas ajenas a `cwc_*`. 
