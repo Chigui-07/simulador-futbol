@@ -25,6 +25,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html countries.js flags.js extras.js online.js _site/
+          cp -r cmn-nuevo _site/
           python3 - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile
